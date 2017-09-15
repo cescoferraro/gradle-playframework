@@ -115,5 +115,10 @@ tmp/
 test-result
 server.pid
 *.eml
-/dist/
+dist/
 .cache
+.classpath
+.project
+.settings
+*.xmi
+gradle/

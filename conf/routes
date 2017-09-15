@@ -4,5 +4,4 @@
 
 # Home page
 GET        /                     controllers.Application.index()
-GET        /cesco                     controllers.Application.Cesco()
 
