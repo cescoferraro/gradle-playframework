@@ -12,10 +12,14 @@ import java.util.Random;
 
 public class Application extends Controller {
 
+    public static Result kitty() {
+        AWSCredentials credentials = new BasicAWSCredentials("AKIAJ7OWUPJ7ANREIBVA", "th8UJkoydxYnCtX/fqh8TdPLU7EOtIIykQ8OKNLb");
+        AmazonS3 s3client = new AmazonS3Client(credentials);
+        return redirect(Hey(s3client));
+    }
+
   public static Result index() {
-		AWSCredentials credentials = new BasicAWSCredentials("AKIAJ7OWUPJ7ANREIBVA", "th8UJkoydxYnCtX/fqh8TdPLU7EOtIIykQ8OKNLb");
-		AmazonS3 s3client = new AmazonS3Client(credentials);
-		return redirect(Hey(s3client));
+		return ok("heyey");
 	}
 
 	private static String Hey(AmazonS3 s3client){
