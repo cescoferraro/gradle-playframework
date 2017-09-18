@@ -122,3 +122,4 @@ dist/
 .settings
 *.xmi
 gradle/
+playBinary/
