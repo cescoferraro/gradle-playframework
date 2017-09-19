@@ -14,34 +14,30 @@ import play.Configuration;
 import play.Logger;
 
 public class Application extends Controller {
+	AmazonS3 s3Client;
+	List<S3ObjectSummary> photos;
+    Configuration configuration;
+	String bucket_name = "cescocats";
 
-
-    private Configuration configuration;
-
-    @Inject
-    public Application(Configuration config) {
+	@Inject
+	public Application(Configuration config) {
         this.configuration = config;
+		BasicAWSCredentials creds = new BasicAWSCredentials(configuration.getString("aws.access.key"), configuration.getString("aws.secret.key")); 
+		this.s3Client = AmazonS3ClientBuilder.standard()
+			.withRegion("sa-east-1") .withCredentials(new AWSStaticCredentialsProvider(creds)).build();
+		this.photos = s3Client.listObjects(this.bucket_name).getObjectSummaries();
     }
 
 	public Result root() {
-		System.out.println(configuration.getString("aws.access.key"));
-		return ok( configuration.getString("aws.access.key"));
+		return ok("sdkfjndsf");
 	}
 
     public Result kitty() {
-		String AK = configuration.getString("aws.access.key");
-		String AS =		configuration.getString("aws.secret.key");
-		System.out.println(AK);
-		System.out.println(AS);
-		BasicAWSCredentials creds = new BasicAWSCredentials(AK, AS); 
-		AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
-			.withRegion("sa-east-1") .withCredentials(new AWSStaticCredentialsProvider(creds)).build();
-        return redirect(Hey(s3Client));
+		return redirect(this.s3Client.generatePresignedUrl(this.bucket_name, this.photos.get(new Random().nextInt(this.photos.size())).getKey(), null).toString());
     }
 
-	private String Hey(AmazonS3 s3client){
-    	String bucket_name = "cescocats";
-        List<S3ObjectSummary> objects = s3client.listObjects(bucket_name).getObjectSummaries();
-		return s3client.generatePresignedUrl(bucket_name, objects.get(new Random().nextInt(objects.size())).getKey(), null).toString();
-	}
+	// private String Hey(AmazonS3 s3client){
+    // 	String bucket_name = "cescocats";
+	// 	return s3client.generatePresignedUrl(bucket_name, this.photos.get(new Random().nextInt(this.photos.size())).getKey(), null).toString();
+	// }
 }

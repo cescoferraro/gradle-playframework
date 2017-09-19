@@ -2,13 +2,14 @@ version: '3'
 services:
   play:
     container_name: play 
+    image: cescoferraro/play
     build: 
-      context: ./
-      dockerfile: ./Dockerfile
+      context: ./build
+      dockerfile: ./stage/playBinary/Dockerfile
     ports:
      - "9000:9000"
     environment:
       - VIRTUAL_HOST=play.cescoferraro.xyz
       - CERT_NAME=shared
-      - AWS_ACCESS_KEY_ID="AKIAJ7OWUPJ7ANREIBVA"
-      - PLAY_AWS_SECRET_KEY="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"
+      - PLAY_AWS_ACCESS_KEY=AKIAJ7OWUPJ7ANREIBVA
+      - PLAY_AWS_SECRET_KEY=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

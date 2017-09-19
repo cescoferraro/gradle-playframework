@@ -67,9 +67,11 @@ model {
             injectedRoutesGenerator = true
         }
     }
+    distributions {
+        playBinary {
+            contents {
+                from("Dockerfile") 
+            }
+        }
+    }
 }
-task copyDockerfile(type: Copy){
-    from 'Dockerfile'
-    into 'playBinary'
-}
-
