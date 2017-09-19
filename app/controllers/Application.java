@@ -1,17 +1,17 @@
 package controllers;
 
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import java.util.List;
+import java.util.Random;
+import play.mvc.Controller;
+import play.mvc.Result;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
-import java.util.List;
-import java.util.Random;
 import javax.inject.Inject;
 import play.Configuration;
 import play.Logger;
-import play.mvc.Controller;
-import play.mvc.Result;
 
 public class Application extends Controller {
 
@@ -24,11 +24,16 @@ public class Application extends Controller {
     }
 
 	public Result root() {
-		return ok( configuration.getString("cesco"));
+		System.out.println(configuration.getString("aws.access.key"));
+		return ok( configuration.getString("aws.access.key"));
 	}
 
     public Result kitty() {
-		BasicAWSCredentials creds = new BasicAWSCredentials("AKIAJ7OWUPJ7ANREIBVA", "th8UJkoydxYnCtX/fqh8TdPLU7EOtIIykQ8OKNLb"); 
+		String AK = configuration.getString("aws.access.key");
+		String AS =		configuration.getString("aws.secret.key");
+		System.out.println(AK);
+		System.out.println(AS);
+		BasicAWSCredentials creds = new BasicAWSCredentials(AK, AS); 
 		AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
 			.withRegion("sa-east-1") .withCredentials(new AWSStaticCredentialsProvider(creds)).build();
         return redirect(Hey(s3Client));

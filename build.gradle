@@ -68,3 +68,8 @@ model {
         }
     }
 }
+task copyDockerfile(type: Copy){
+    from 'Dockerfile'
+    into 'playBinary'
+}
+
