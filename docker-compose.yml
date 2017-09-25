@@ -11,5 +11,3 @@ services:
     environment:
       - VIRTUAL_HOST=play.cescoferraro.xyz
       - CERT_NAME=shared
-      - PLAY_AWS_ACCESS_KEY=AKIAJ7OWUPJ7ANREIBVA
-      - PLAY_AWS_SECRET_KEY=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

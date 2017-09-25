@@ -4,5 +4,5 @@
 
 # Home page
 GET        /                            controllers.Application.root()
-GET        /kitty                     controllers.Application.kitty()
+GET        /kitty                     	controllers.Application.cat()
 
