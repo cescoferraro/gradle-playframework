@@ -8,16 +8,17 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
-
 import play.Configuration;
+import play.mvc.Result;
 
-public class AWS {
+
+public class S3CatsBucket {
 	public AmazonS3 s3Client;
 	public List<S3ObjectSummary> photos;
     Configuration configuration;
 	public String bucket_name = "cescocats";
 	
-	public AWS(Configuration configuration){
+	public S3CatsBucket(Configuration configuration){
 		String AS = configuration.getString("aws.access.key");
 		String AK = configuration.getString("aws.secret.key");
 		BasicAWSCredentials creds = new BasicAWSCredentials(AS, AK); 

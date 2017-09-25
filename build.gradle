@@ -3,7 +3,6 @@ apply plugin: 'play'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
 
-
 repositories {
     mavenCentral()
     jcenter()
